@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Viewer</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Include the PDF.js library -->
+    <script src="pdf.min.js"></script>
+
+</head>
+
+<body>
+    <script src="app.js"></script>
+    <div id="content-container"> 
+        <button class="box" aria-hidden="true" id="topLeftBtn-hidden" onclick="backToMain()">X</button>
+        <div class="container" id="link-container">
+            
+             <!-- Her tilføjer I nye dokumenter -->
+            <a href="#" onclick="changeValue('test0')">Test0</a>
+            <a href="#" onclick="changeValue('test1')">Test1</a>
+            <a href="#" onclick="changeValue('test2')">Test2</a>
+          
+        </div>
+        <div id="pdf-container-hidden">
+        </div>
+    </div>
+    <div id="main-container">
+        
+    </div>
+
+</body>
+</html>

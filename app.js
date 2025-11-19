@@ -240,7 +240,7 @@ function addInfo(link){
 
     box.innerHTML = `
     <h1>${title}</h1>
-    <p><strong>Date:</strong> ${date}</p>
-    <p><strong>Author:</strong> ${author}</p>
+    <p><i>Date - </i> ${date}</p>
+    <p><i>Author - </i> ${author}</p>
     `;
 }

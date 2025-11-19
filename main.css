@@ -1,16 +1,15 @@
-  h1 {
+h1 {
     font-weight: 700;
     margin-top: 0px;
     padding-top: 0px;
   }
+
   p {
     font-weight: 400;
   }
 
-
 body {
-    font-family: 'Noto', serif;
-    font-size: 1.2em;
+    font-family: 'Noto', sans-serif;
     margin: 20px;
     margin: 0px;
     margin-left: 20px;
@@ -18,7 +17,12 @@ body {
     display: flex;
     align-items: center;
     height: 100vh;
+    color: #2a71c4;
     background-color: #ffffff;
+}
+
+p {
+    font-size: 1.2em;
 }
 
 #pdf-container {
@@ -26,10 +30,11 @@ body {
     position: sticky;
     top: 0px;
     left: 0px;
-    overflow: auto;
-    width: 100%;
+    width: 80%;
     height: 100%;
     transform: scale(1);
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
     transition: transform 0.2s, height 0.2;
 }
 
@@ -49,22 +54,68 @@ body {
 }
 
 #link-container-hidden {
-    /*display: none;*/
-    transform: scale(0);
-    height: 0%;
-    transition: transform 0.2s, height 0.2;
-    border: 0px
+    display: none;
+    width: 100%;
+    height: 100%;
 }
+
+#column-left {    
+    width: 100%;
+    height: 95%;
+}
+
+#button-container {    
+    width:fit-content;
+    border-right: 5px solid #2a71c4;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-family: 'Noto', sans-serif;
+    font-size: 1.5em;
+    border-left: 5px solid #2a71c4;
+    border-right: 0px;
+    border-top: 0px;
+    border-bottom: 5px solid #2a71c4;
+    color: #2a71c4;                /* Text color */
+    background-color: #dfebff;
+    border-radius: 0px;              /* Rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease;       /* Smooth hover animation */
+  }
+
+  .invis {
+    display: none;
+    height: 0px;
+  }
+
+  .btn:hover {
+    background-color: #2a71c4;     /* Fill becomes blue */
+    color: white;              /* Text turns white */
+    letter-spacing: 0.2em;
+  }
+
+  .btn:active {
+      background-color: white; 
+  }
+
+/* Highlighted (active) button */
+#sort_btn button.active {
+        background-color: #2a71c4; ; 
+        color: #82a2c7;  
+}
+
 
 #content-container {
     position:relative;
-    font-size: 1.5em;
+    font-size: 1.2em;
     justify-content: left;
-    width: 80%;
+    width: 100%;
     height: 95%;
-    overflow: scroll;
-    border: 5px solid #0194a1;
-    background-color: #f1fdf9;
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+    border: 5px solid #2a71c4;
+    background-color: #dfebff;
 }
 
 .loaded {
@@ -74,39 +125,46 @@ body {
 #main-container {
     justify-content: right;
     padding-left: 40px;
-    width: 20%;
+    width: 35%;
     height: 95%;
     margin-right: 40px;
     overflow: auto ;
 }
 
-#topLeftBtn {
-    display: block;
-    position: fixed;
-    top: 2.4%;
-    left: 20px;
-    width: 40px;
-    height: 40px;
-    background: #eee;
-    color: #eee;
-    border: 1px solid #000;
-    cursor: pointer;
-    
-    transition: transform 0.2s ease;
-    z-index: 9999;
-  }
-  #topLeftBtn:hover {
-    
-    
-    transform: scale(1.2,1.2);
-  }
-
-  #topLeftBtn-hidden {
-    display: none;
-  }
-
 canvas {
     width: 100%;
+}
+
+.scatter a {
+    position: absolute;       /* take links out of normal flow */
+    display: inline-block;
+}
+
+.listed a {
+    position: static;
+    display: table;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1.3em;
+    border-bottom: 5px solid #2a71c4;
+   
+}
+
+.title {
+    display: table-cell;
+    width: 40%;
+}
+
+.author {
+    display: table-cell;
+    width: 30%;
+}
+
+.date {
+    display: table-cell;
+    text-align: right;
+    padding-right: 20px;
+    width: 30%;
 }
 
 .container {
@@ -117,49 +175,35 @@ canvas {
   }
 
 .container a {
-    position: absolute;       /* take links out of normal flow */
-    display: inline-block;
     padding: 5px 10px;
-    color: #000;
+    color: #2a71c4;
     text-decoration: none;
-    border-radius: 20px;
-    
+    border-radius: 0px;
     white-space: nowrap;      /* keep text on one line */
-    transition: transform 0.2s ease, letter-spacing 0.2s ease;
+    transition: transform 0.2s ease, letter-spacing 0.2s ease, top 1s ease, left 1s ease;
   }
 
   .container a:hover {
+    background-color: #2a71c4;     /* Fill becomes blue */
+    color: white;              /* Text turns white */
     letter-spacing: 0.2em;
-    transform: translate(-5px,0px) scale(1,1.2);
-    transition: transform 0.2s ease, letter-spacing 0.2s ease;
   }
-
-  /* draw two diagonal lines using pseudo elements */
-.box::before,
-.box::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 135%;          /* length of the line */
-  height: 1px;          /* thickness */
-  background: #000;     /* line color */
-  transform-origin: center;
-}
-
-/* first diagonal: \ */
-.box::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-/* second diagonal: / */
-.box::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
 
 img {
     width: 100%;   /* adjust as needed */
     height: auto;   /* keeps aspect ratio */
     display: block;
     margin: 0px auto; /* centers image horizontally */
+  }
+
+  #background {
+    background-color: #2a71c4;
+
+   
+  }
+
+  .vis {
+    display: flex;
+    justify-content: center;
+    height: 100%;
   }

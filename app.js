@@ -1,18 +1,34 @@
+let pdfView = false;
+let scattered = true;
 
-        var url = '/PDF/test0.pdf'; // Path to your PDF file
+let storedWidth = window.innerWidth;
+let storedHeight = window.innerHeight;
 
-        let myVar = "PDF/test0.pdf";
-      
-        //
+function windowSizeChanged() {
+  const currentWidth = window.innerWidth;
+  const currentHeight = window.innerHeight;
+
+  if (currentWidth !== storedWidth || currentHeight !== storedHeight) {
+    return true;   // size changed
+  }
+  return false;    // size is the same
+}
+
 
         function onLoading(){
+            document.querySelectorAll(".data-link").forEach(link => {
+                link.querySelector('.title').textContent = link.dataset.title;
+              });
+        
+
+            addFromFile("main-container","beskrivelse.html");
             randomizeLinks("link-container");
-            addFromFile("main-container","beskrivelse.html")
         }
 
-        function changeValue(newVal) {
+        function changeValue(link,newVal) {
           myVar = newVal
           url = newVal;;
+          addInfo(link);
           //document.getElementById('value').textContent = myVar;
           loadNewPdf(url);
         }
@@ -23,16 +39,20 @@
         // Load the PDF
         var newUrl = "PDF/"+textName+".pdf"
         pdfjsLib.getDocument(newUrl).promise.then(function(pdf) {
+            pdfView = true;
+            document.getElementById("sort_btn").classList.add("invis");
+            document.getElementById("x_btn").classList.remove("invis");
+            document.getElementById("background").classList.remove("invis");
+            document.getElementById("background").classList.add("vis");
             //console.log('PDF loaded, total pages:', pdf.numPages);
 
             const container = document.getElementById("pdf-container-hidden");
             const links = document.getElementById('link-container');
-            const button  = document.getElementById('topLeftBtn-hidden');
             container.id = "pdf-container";
             links.id = 'link-container-hidden';
-            button.id = 'topLeftBtn';
 
-            addFromFile("main-container","PDF/"+textName+".html")
+           // addFromFile("main-container","PDF/"+textName+".html")
+           
             //clear previous pages
             container.innerHTML = "";
 
@@ -88,17 +108,88 @@
       }
 
     function backToMain() {
+        pdfView = false;
         const container = document.getElementById("pdf-container");
         const links = document.getElementById('link-container-hidden');
-        const button  = document.getElementById('topLeftBtn');
+        document.getElementById("sort_btn").classList.remove("invis");
+        document.getElementById("x_btn").classList.add("invis");
+        document.getElementById("background").classList.add("invis");
+        document.getElementById("background").classList.remove("vis");
         container.id = "pdf-container-hidden";
         links.id = 'link-container';
-        button.id = 'topLeftBtn-hidden';
         addFromFile("main-container","beskrivelse.html")
+      }
+  
+      let resizeTimer;
+
+      window.addEventListener('resize', () => {
+      
+        // Clear any previous timer
+        clearTimeout(resizeTimer);
+  
+        // Start a new timer — triggers 300ms *after* last resize event
+        resizeTimer = setTimeout(() => {
+          onResizeEnd();
+        }, 300);
+        
+      });
+  
+      function onResizeEnd() {
+        if (pdfView == false) {
+            randomizeLinks("link-container");
+        }
+      }
+      
+function scatterLinks(containerId) {
+    document.getElementById("link-container").classList.replace("listed", "scatter");
+    document.querySelectorAll('.data-link').forEach(link => {
+        link.querySelector('.author').textContent = "";
+        link.querySelector('.date').textContent = "";
+      });
+      if (windowSizeChanged()){
+        randomizeLinks("link-container");
+        storedWidth = window.innerWidth;
+        storedHeight = window.innerHeight;
+      }
+   scattered = true;
+}
+
+
+function sortLinksByDate(containerId, newestFirst = true) {
+        const container = document.getElementById(containerId);
+        document.getElementById("link-container").classList.replace("scatter", "listed");
+
+        const links = Array.from(container.querySelectorAll('a'));
+        
+        document.querySelectorAll('.data-link').forEach(link => {
+        link.querySelector('.title').textContent = link.dataset.title;
+        link.querySelector('.author').textContent = link.dataset.author;
+        link.querySelector('.date').textContent = link.dataset.date;
+
+        if (scattered)
+        {
+            storedWidth = window.innerWidth;
+            storedHeight = window.innerHeight;
+            scattered = false;
+        }
+       
+          });
+
+        // Sort by date
+        links.sort((a, b) => {
+          const dateA = new Date(a.dataset.date);
+          const dateB = new Date(b.dataset.date);
+          return newestFirst ? dateB - dateA : dateA - dateB;
+        });
+  
+        // Remove all current links
+        container.innerHTML = '';
+  
+        // Append links in sorted order
+        links.forEach(link => container.appendChild(link));
       }
 
       function randomizeLinks(containerId) {
-      
         const container = document.getElementById(containerId);
         const links = container.querySelectorAll('a');
     
@@ -120,4 +211,36 @@
     
       // run when the page loads
     window.onload = () => onLoading();
-    //window.onload = () => randomizeLinks("link-container");
+   
+
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("loaded")
+        const container = document.getElementById("sort_btn");
+        if (!container) {
+          console.error("buttonContainer not found!");
+          return;
+        }
+      
+        container.addEventListener("click", event => {
+          if (event.target.tagName === "BUTTON") {
+            container.querySelectorAll("button")
+                     .forEach(btn => btn.classList.remove("active"));
+            event.target.classList.add("active");
+          }
+        });
+      });
+
+function addInfo(link){
+    console.log("clicked")
+    const box = document.getElementById("main-container");
+
+    const title  = link.dataset.title;
+    const date   = link.dataset.date;
+    const author = link.dataset.author;
+
+    box.innerHTML = `
+    <h1>${title}</h1>
+    <p><strong>Date:</strong> ${date}</p>
+    <p><strong>Author:</strong> ${author}</p>
+    `;
+}

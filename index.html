@@ -13,20 +13,54 @@
 
 <body>
     <script src="app.js"></script>
-    <div id="content-container"> 
-        <button class="box" aria-hidden="true" id="topLeftBtn-hidden" onclick="backToMain()">X</button>
-        <div class="container" id="link-container">
-            
-             <!-- Her tilføjer I nye dokumenter -->
-            <a href="#" onclick="changeValue('Poet')">poem by a poet</a>
-            <a href="#" onclick="changeValue('LetterOfComplaint')">complaining letter</a>
-            <a href="#" onclick="changeValue('drawing')">drawing</a>
-            <a href="#" onclick="changeValue('dearLife')">dear life</a>
-            <a href="#" onclick="changeValue('billedeMaj2025')">drawing 05.2025</a>
+    <div id="column-left">
+        
+        <div id="content-container"> 
           
+            <div class="container scatter" id="link-container">
+                
+                <!-- Her tilføjer I nye dokumenter -->
+                <a href="#" data-date="2025-06" data-title="poem by a poet" data-author="poet" class="data-link" onclick="changeValue(this,'Poet')">
+                    <span class="title"></span>
+                    <span class="author"></span>
+                    <span class="date"></span>
+                </a>
+
+                <a href="#" data-date="2024-01" data-title="complaining letter" data-author="Ellebæk Prisoners" class="data-link" onclick="changeValue(this,'LetterOfComplaint')">
+                    <span class="title"></span>
+                    <span class="author"></span>
+                    <span class="date"></span>
+                </a>
+
+                <a href="#" data-date="2025-04" data-title="drawing" data-author="Anonymous" class="data-link" onclick="changeValue(this,'drawing')">
+                    <span class="title"></span>
+                    <span class="author"></span>
+                    <span class="date"></span>
+                </a>
+
+                <a href="#" data-date="2025-05" data-title="dear life" data-author="Anonymous" class="data-link" onclick="changeValue(this,'dearLife')">
+                    <span class="title"></span>
+                    <span class="author"></span>
+                    <span class="date"></span>
+                </a>
+
+            </div>
+        <div class="invis" id="background">
+            <div id="pdf-container-hidden">
+
+            </div>
         </div>
-        <div id="pdf-container-hidden">
+            
         </div>
+        <div id="button-container">
+            <div id="x_btn" class="invis"><button aria-hidden="true" class="btn"  onclick="backToMain()">back</button>  </div>  <div class="button-container" id="sort_btn">
+            <button class="btn active" onclick="scatterLinks('link-container')">scatter</button><button  class="btn" onclick="sortLinksByDate('link-container', true)">sort (newest first)</button><button class="btn" onclick="sortLinksByDate('link-container', false)">sort (oldest first)</button>   
+        </div>
+        
+        </div>
+    </div>
+    <div>
+   
     </div>
     <div id="main-container">
         

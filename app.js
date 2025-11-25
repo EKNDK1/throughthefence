@@ -52,8 +52,7 @@ function windowSizeChanged() {
         
         // Load the PDF
         var newUrl = "PDF/"+textName+".pdf"
-        pdfjsLib.getDocument(newUrl).promise.then(function(pdf) {
-            pdfView = true;
+        pdfView = true;
             document.getElementById("sort_btn").classList.add("invis");
             document.getElementById("x_btn").classList.remove("invis");
             document.getElementById("background").classList.remove("invis");
@@ -64,11 +63,14 @@ function windowSizeChanged() {
             const links = document.getElementById('link-container');
             container.id = "pdf-container";
             links.id = 'link-container-hidden';
+            container.innerHTML = "";
+        pdfjsLib.getDocument(newUrl).promise.then(function(pdf) {
+            
 
            // addFromFile("main-container","PDF/"+textName+".html")
            
             //clear previous pages
-            container.innerHTML = "";
+            
 
             // Loop through all pages
             for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {

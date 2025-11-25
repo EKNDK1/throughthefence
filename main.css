@@ -17,12 +17,12 @@ body {
     display: flex;
     align-items: center;
     height: 100vh;
-    color: #2a71c4;
-    background-color: #ffffff;
+   color: #231F20;
+    background-color: #FFFDF7;
 }
 
 p {
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 #pdf-container {
@@ -66,19 +66,19 @@ p {
 
 #button-container {    
     width:fit-content;
-    border-right: 5px solid #2a71c4;
+    border-right: 5px solid #003844;
 }
 
 .btn {
     padding: 10px 20px;
     font-family: 'Noto', sans-serif;
     font-size: 1.5em;
-    border-left: 5px solid #2a71c4;
+    border-left: 5px solid #003844;
     border-right: 0px;
     border-top: 0px;
-    border-bottom: 5px solid #2a71c4;
-    color: #2a71c4;                /* Text color */
-    background-color: #dfebff;
+    border-bottom: 5px solid #003844;
+    color: #003844;                /* Text color */
+    background-color: #33D7D1;
     border-radius: 0px;              /* Rounded corners */
     cursor: pointer;
     transition: all 0.3s ease;       /* Smooth hover animation */
@@ -90,19 +90,19 @@ p {
   }
 
   .btn:hover {
-    background-color: #2a71c4;     /* Fill becomes blue */
-    color: white;              /* Text turns white */
+    background-color: #003844;     /* Fill becomes blue */
+    color: #FFFDF7;              /* Text turns white */
     letter-spacing: 0.2em;
   }
 
   .btn:active {
-      background-color: white; 
+      background-color: #FFFDF7; 
   }
 
 /* Highlighted (active) button */
 #sort_btn button.active {
-        background-color: #2a71c4; ; 
-        color: #82a2c7;  
+        background-color: #003844; ; 
+        color: #005366;  
 }
 
 
@@ -114,8 +114,8 @@ p {
     height: 95%;
     overflow: -moz-scrollbars-vertical; 
     overflow-y: scroll;
-    border: 5px solid #2a71c4;
-    background-color: #dfebff;
+    border: 5px solid #003844;
+    background-color: #33D7D1;
 }
 
 .loaded {
@@ -123,12 +123,15 @@ p {
 }
 
 #main-container {
-    justify-content: right;
-    padding-left: 40px;
+    margin-left: 40px;
+    height: 90%;
+    margin-top: 20px;
+    margin-bottom: 50px;
     width: 35%;
-    height: 95%;
     margin-right: 40px;
-    overflow: auto ;
+    overflow: visible;
+    overflow: scroll;
+    padding: 10px;
 }
 
 canvas {
@@ -146,7 +149,7 @@ canvas {
     justify-content: space-between;
     width: 100%;
     font-size: 1.3em;
-    border-bottom: 5px solid #2a71c4;
+    border-bottom: 5px solid #003844;
    
 }
 
@@ -176,7 +179,8 @@ canvas {
 
 .container a {
     padding: 5px 10px;
-    color: #2a71c4;
+    font-weight: 500;
+    color: #003844;
     text-decoration: none;
     border-radius: 0px;
     white-space: nowrap;      /* keep text on one line */
@@ -184,26 +188,39 @@ canvas {
   }
 
   .container a:hover {
-    background-color: #2a71c4;     /* Fill becomes blue */
-    color: white;              /* Text turns white */
+    background-color: #003844;     /* Fill becomes blue */
+    color: #FFFDF7;              /* Text turns white */
     letter-spacing: 0.2em;
   }
 
 img {
-    width: 100%;   /* adjust as needed */
+    width: 95%;   /* adjust as needed */
     height: auto;   /* keeps aspect ratio */
     display: block;
     margin: 0px auto; /* centers image horizontally */
   }
 
   #background {
-    background-color: #2a71c4;
-
-   
-  }
+    background-color: #003844;
+    }
 
   .vis {
     display: flex;
     justify-content: center;
     height: 100%;
+  }
+
+  a {
+    color: #003844;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 0px;
+    white-space: nowrap;      /* keep text on one line */
+    transition: transform 0.2s ease, letter-spacing 0.2s ease, top 1s ease, left 1s ease;
+  }
+
+    a:hover {
+    background-color: #003844;     /* Fill becomes blue */
+    color: #FFFDF7;              /* Text turns white */
+    letter-spacing: 0.05em;
   }

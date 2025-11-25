@@ -26,12 +26,26 @@ function windowSizeChanged() {
         }
 
         function changeValue(link,newVal) {
-          myVar = newVal
-          url = newVal;;
+          myVar = newVal;
+          url = newVal;
+          textPath = "PDF/" + newVal + ".txt";
           addInfo(link);
+            
+        doSomethingIfFileExists(textPath,"extraText")
           //document.getElementById('value').textContent = myVar;
           loadNewPdf(url);
         }
+
+        async function doSomethingIfFileExists(path,div) {
+            const exists = await fileExists(path);
+            if (exists) {
+              // run code that should run only if file exists
+              loadTextIntoDiv(path,div)
+              console.log("File exists — run success code");
+            } else {
+              console.log("File does not exist — run fallback");
+            }
+          }
 
         function loadNewPdf(textName)
         {
@@ -242,5 +256,39 @@ function addInfo(link){
     <h1>${title}</h1>
     <p><i>Date - </i> ${date}</p>
     <p><i>Author - </i> ${author}</p>
+    <div id="description"></div>
+    <div id="extraText" class="invis"></div>
     `;
 }
+
+function loadTextIntoDiv(txtFilePath, containerId) {
+    const container = document.getElementById(containerId);
+    const box = document.getElementById("description");
+    box.innerHTML += "<p><em>Text:</em></p>"; 
+    container.classList.remove("invis");
+
+    fetch(txtFilePath)
+        .then(response => response.text())
+        .then(text => {
+            // Split into paragraphs at blank lines or line breaks
+            const paragraphs = text.split(/\r?\n\r?\n|(\r?\n)/).filter(p => p && p.trim());
+
+            paragraphs.forEach(p => {
+                const paragraph = document.createElement("p");
+                paragraph.textContent = p.trim();
+                container.appendChild(paragraph);
+            });
+        })
+        .catch(err => console.error("Error loading text file:", err));
+}
+
+async function fileExists(path) {
+    try {
+        const response = await fetch(path, { method: "HEAD" });
+        return response.ok;
+    } catch (e) {
+        return false;
+    }
+}
+
+

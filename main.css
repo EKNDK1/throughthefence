@@ -224,3 +224,13 @@ img {
     color: #FFFDF7;              /* Text turns white */
     letter-spacing: 0.05em;
   }
+
+  #extraText{
+    background-color: #33D7D1;
+    padding: 20px;
+  }
+
+  #description {
+    margin-bottom: -15px;
+    
+  }

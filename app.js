@@ -266,7 +266,7 @@ function addInfo(link){
 function loadTextIntoDiv(txtFilePath, containerId) {
     const container = document.getElementById(containerId);
     const box = document.getElementById("description");
-    box.innerHTML += "<p><em>Text:</em></p>"; 
+    //box.innerHTML += "<p><em>Text:</em></p>"; 
     container.classList.remove("invis");
 
     fetch(txtFilePath)
